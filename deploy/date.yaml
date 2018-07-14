@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: date-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: date
+        version: v1
+    spec:
+      containers:
+      - name: date
+        image: date:v1
+        ports:
+        - containerPort: 3001
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: date-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: date
+        version: v2
+    spec:
+      containers:
+      - name: date
+        image: date:v2
+        ports:
+        - containerPort: 3001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: date
+  labels: 
+    app: date
+spec:
+  ports:
+  - port: 80
+    name: http
+    targetPort: 3001
+  selector:
+    app: date

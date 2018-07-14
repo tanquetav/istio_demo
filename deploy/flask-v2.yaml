@@ -1,0 +1,21 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: date
+spec:
+  hosts:
+  - date
+  http:
+  - match:
+    - headers:
+        me:
+          exact: me
+    route:
+    - destination:
+        host: date
+        subset: v2
+  - route:
+    - destination:
+        host: date
+        subset: v1
+

@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: date-dev
+  labels:
+    k8s-app: date-dev
+  namespace: default
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        k8s-app: date-dev
+    spec:
+      containers:
+      - name: date-dev
+        image: date:v2
+        ports:
+        - containerPort: 3002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: date-dev
+  namespace: default
+  labels:
+    k8s-app: date-dev
+spec:
+  ports:
+  - port: 80
+    targetPort: 3002
+  selector:
+    k8s-app: date-dev
