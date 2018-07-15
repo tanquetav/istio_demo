@@ -4,13 +4,6 @@ metadata:
   name: counter-v1
 spec:
   replicas: 1
-  revisionHistoryLimit: 2
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
-  minReadySeconds: 5
   template:
     metadata:
       labels:

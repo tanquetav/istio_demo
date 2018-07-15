@@ -8,6 +8,7 @@ spec:
     metadata:
       labels:
         app: flask
+        version: v1
     spec:
       containers:
       - name: flask
