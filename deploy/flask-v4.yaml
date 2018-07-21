@@ -10,9 +10,4 @@ spec:
     - destination:
         host: date
         subset: v2
-      weight: 20
-    - destination:
-        host: date
-        subset: v1
-      weight: 80
 

@@ -2,3 +2,38 @@ kubeadm init --pod-network-cidr=10.244.0.0/16
 
 kubectl taint nodes --all node-role.kubernetes.io/master-
 
+kubectl apply -f kube-flannel.yml
+
+cd ../dashboard
+
+kubectl apply -f .
+
+cd ../../
+
+kubectl apply -f  istio-demo.yaml
+kubectl apply -f grafana.yaml
+
+cd deploy
+
+kubectl apply -f <(istioctl kube-inject -f counter.yaml)
+kubectl apply -f <(istioctl kube-inject -f date.yaml)
+kubectl apply -f <(istioctl kube-inject -f flask.yaml)
+
+istioctl create -f flask-gateway.yaml
+
+istioctl create -f flask-all.yaml
+
+istioctl replace -f flask-v2.yaml
+
+istioctl replace -f flask-v3.yaml
+
+istioctl replace -f flask-v4.yaml
+
+
+# http://192.168.122.15:30000
+
+# http://192.168.122.15:30001/
+# http://192.168.122.15:30002/force/forcegraph.html
+# http://192.168.122.15:30002/dotviz
+
+# http://192.168.122.15:30003
