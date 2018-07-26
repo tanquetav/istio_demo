@@ -1,4 +1,15 @@
+# Instalei o docker, kubeadm, kubectl e kubelet
+# system enable kubelet docker
+# system start kubelet docker
+# curl -L https://git.io/getLatestIstio | sh -
+
+
+
+
+
 kubeadm init --pod-network-cidr=10.244.0.0/16
+
+cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 
 kubectl taint nodes --all node-role.kubernetes.io/master-
 
